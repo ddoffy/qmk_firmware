@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
-bool show_lock = true; // this is used to display the lock icon and disable keypresses when the keyboard is locked
+bool show_lock = false; // this is used to display the lock icon and disable keypresses when the keyboard is locked
 
 static void render_logo(void) {
     static const char PROGMEM no_qmk[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
