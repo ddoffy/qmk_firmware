@@ -1,7 +1,7 @@
 // Copyright 2022 axtlos (@axtloss)
 // SPDX-License-Identifier: GPL-2.0-only
 #include QMK_KEYBOARD_H
-
+#include <time.h>
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
   _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
-  _______,  LGUI(KC_1),  LGUI(KC_2),  LGUI(KC_3),  LGUI(KC_4), LGUI(KC_5),                        LGUI(KC_6), LGUI(KC_7),   KC_PGDN, LGUI(KC_9),LGUI(KC_0), KC_BSPC,
+  _______,  LGUI(KC_1),  LGUI(KC_2),  LGUI(KC_3),  LGUI(KC_4), LGUI(KC_5),                        LGUI(KC_6), LGUI(KC_7),   KC_PGDN, LGUI(KC_9),KC_DLINE, KC_BSPC,
   _______, RALT(KC_Q), RALT(KC_Y),  RALT(KC_P), RALT(KC_S) , RALT(KC_5),                       KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_DEL, KC_BSPC,
   _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_CAPS,  _______,       _______,  XXXXXXX, KC_LSTRT, XXXXXXX, KC_LEND,   XXXXXXX, _______,
                          _______, _______, _______, _______, KC_ENT,       _______, _______, _______, _______, _______
@@ -241,6 +241,7 @@ bool isSneaking = false;
 bool isJumping  = false;
 bool showedJump = true;
 
+
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
     /* Sit */
@@ -362,7 +363,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void print_logo_narrow(void) {
-    render_logo();
+     render_logo();
 }
 
 static void print_status_narrow(void) {
@@ -440,6 +441,7 @@ bool oled_task_user(void) {
     } else {
         print_logo_narrow();
     }
+
     return false;
 }
 
@@ -655,11 +657,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
     }
     /* This stops any keypress to be sent to the computer when the keyboard is locked */
-    if (show_lock == false) {
-        return true;
-    } else {
-        return false;
-    }
+    return !show_lock;
 }
 
 #ifdef ENCODER_ENABLE
@@ -673,9 +671,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_MNXT);
+            //tap_code(KC_MNXT);
+            tap_code(KC_MS_WH_UP);
         } else {
-            tap_code(KC_MPRV);
+            //tap_code(KC_MPRV);
+            tap_code(KC_MS_WH_DOWN);
         }
     }
     return true;
