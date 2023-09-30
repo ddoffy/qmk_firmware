@@ -26,6 +26,7 @@ enum custom_keycodes {
     KC_LEND,
     KC_DLINE,
     KC_UNLOCK,
+    KC_CSCOM
 };
 
 
@@ -674,11 +675,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_C);
+                // Swap CTL and GUI on Mac
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_C);
+                }
+                // Linux/Windows
+                else {
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_C);
+                }
+
             } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_C);
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_C);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CS));
+                    unregister_code(KC_C);
+                }
             }
             return false;
         case KC_PASTE:
@@ -686,11 +701,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_V);
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_V);
+                } else {
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_V);
+                }
             } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_V);
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_V);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CS));
+                    unregister_code(KC_V);
+                }
             }
             return false;
         case KC_CUT:
@@ -698,24 +723,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_X);
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_X);
+                } else {
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_X);
+                }
             } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_X);
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_X);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CS));
+                    unregister_code(KC_X);
+                }
             }
             return false;
-            break;
         case KC_UNDO:
             if (show_lock == true) {
                 return false;
             }
             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_Z);
+                } else {
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_Z);
+                }
             } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_Z);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CS));
+                    unregister_code(KC_Z);
+                }
             }
             return false;
         case KC_UNLOCK:
@@ -723,6 +767,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 show_lock = !show_lock;
                 print_status_narrow();
             }
+            return false;
     }
     /* This stops any keypress to be sent to the computer when the keyboard is locked */
     return !show_lock;
@@ -755,7 +800,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_QWERTY] =   { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_QWERTY] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGUP, KC_PGDN)  },
     [_COLEMAK] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(KC_BRIU, KC_BRID)  },
     [_RAISE] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
