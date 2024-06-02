@@ -8,3 +8,15 @@
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
+
+#define MASTER_RIGHT
+
+#ifdef MASTER_LEFT
+#define USE_SERIAL
+#define EE_HANDS
+#endif
+
+#ifdef MASTER_RIGHT
+#define USE_SERIAL
+#define EE_HANDS
+#endif
