@@ -27,7 +27,8 @@ enum custom_keycodes {
     KC_DLINE,
     KC_UNLOCK,
     KC_CSCOM,
-    KC_CREATE
+    KC_CREATE,
+    KC_SCREENSHOT
 };
 
 
@@ -103,19 +104,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------------.                    ,-----------------------------------------.
  * |  `   |      |      |      |      |      |                    |           |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------     +------+------+------+------+------|
- * | Esc  | Ins  | Pscr | Menu |      |      |                    |           | PWrd |      | NWrd | DLine| Bspc |
+ * | Esc  | Ins  | Pscr | Menu |SSHOT |      |                    |           | PWrd |      | NWrd | DLine| Bspc |
  * |------+------+------+------+------+------|                    |------     +------+------+------+------+------|
  * | Tab  |  ae  |  ue  |  oe  |  ss  | euro |-------.    ,-------| Left      | Down |  Up  | Rigth|  Del | Bspc |
  * |------+------+------+------+------+------|  MUTE  |   |       |------+------+------+------+------+------|
  * |Shift | Undo |  Cut | Copy | Paste| caps |-------|    |-------| KC_CREATE |    ' |  Ins | LEnd |      | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | / Space /       \Space \  |RAISE | RGUI | RAlt | RCTR |
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
   _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
-  _______,KC_INS,  KC_PSCR,KC_MENU,  LGUI(KC_4), LGUI(KC_5),                        LGUI(KC_6), KC_PGDN,   KC_PGUP, LGUI(KC_9),LGUI(KC_0), KC_BSPC,
+  _______,KC_INS,  KC_PSCR,KC_MENU,KC_SCREENSHOT, LGUI(KC_5),                        LGUI(KC_6), KC_PGDN,   KC_PGUP, LGUI(KC_9),LGUI(KC_0), KC_BSPC,
   _______,RALT(KC_Q), RALT(KC_Y),  RALT(KC_P), RALT(KC_S) , RALT(KC_5),             KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_DEL, KC_BSPC,
   _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_CAPS,  _______,            _______,KC_CREATE, KC_QUOT, KC_INS, KC_LEND,   XXXXXXX, _______,
                     _______, _______, _______, _______, KC_SPC,                     KC_SPC, _______, _______, _______, _______
@@ -782,6 +783,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     unregister_code(KC_INS);
                     unregister_mods(MOD_BIT(KC_LALT));
+                }
+            }
+            break;
+        case KC_SCREENSHOT:
+            if (show_lock == true) {
+                return false;
+            }
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_CSG));
+                    register_code(KC_4);
+                } else {
+                    register_code(KC_PSCR);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_code(KC_4);
+                    unregister_mods(mod_config(MOD_MASK_CSG));
+                } else {
+                    unregister_code(KC_PSCR);
                 }
             }
             break;
