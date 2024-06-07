@@ -769,7 +769,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_mods(mod_config(MOD_LCTL));
                     register_code(KC_N);
                 } else {
                     register_mods(MOD_BIT(KC_LALT));
@@ -778,7 +778,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 if (keymap_config.swap_lctl_lgui) {
                     unregister_code(KC_N);
-                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_mods(mod_config(MOD_LCTL));
                 } else {
                     unregister_code(KC_INS);
                     unregister_mods(MOD_BIT(KC_LALT));
