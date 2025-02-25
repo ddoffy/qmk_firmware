@@ -28,7 +28,8 @@ enum custom_keycodes {
     KC_UNLOCK,
     KC_CSCOM,
     KC_CREATE,
-    KC_SCREENSHOT
+    KC_SCREENSHOT,
+    KC_NEWTAB
 };
 
 
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_QUOT,
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,       XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,       XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
             KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,         KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /* LOWER
@@ -86,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
- * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|New tab|    |       |------+------+------+------+------+------|
  * | Shift|  =   |  -   |  +   |   [  |   {  |-------|    |-------|   }  |   ]  |   ;  |   :  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR | Lower | / Space /       \Space\   |Raise | RCTR | RAlt | RGUI |
@@ -834,6 +835,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_mods(mod_config(MOD_MASK_CSG));
                 } else {
                     unregister_code(KC_PSCR);
+                }
+            }
+            break;
+        case KC_NEWTAB:
+            if (show_lock == true) {
+                return false;
+            }
+
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_T);
+                } else {
+                    register_mods(mod_config(MOD_LGUI));
+                    register_code(KC_T);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_T);
+                } else {
+                    unregister_mods(mod_config(MOD_LGUI));
+                    unregister_code(KC_T);
                 }
             }
             break;
