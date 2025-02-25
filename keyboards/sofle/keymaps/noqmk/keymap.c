@@ -172,6 +172,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint32_t start_time = 0; // stores the time when the keyboard was powered
                                 // on
+static uint8_t joke_index = 0;  // index of the joke to display
+static uint32_t last_joke_time = 0; // time when the last joke was displayed
+
+
+const char *jokes[] = {
+    "rm -rf is not a joke...",
+    "No color? You're not a real Linux user.",
+    "I'm not a computer, I am Doffy.",
+    "You've never touched it before, you've never seen it before",
+    "OCT 25 == DEC 31, you ain't know? you dumb?",
+    "The global variables are like whores",
+    "My girl is pissed off. I'm not ignoring her, I'm just debugging.",
+    "It works on my machine",
+    "I'm not a bug, don't test me",
+    "This is the shit you never met before",
+    "It works, don't touch",
+    "Why it works? don't ask me, ask it" // 12
+};
+
+const uint8_t NUM_JOKES = 12;
 
 void keyboard_post_init_user(void) {
     start_time = timer_read32();  // Record the start time when the keyboard is initialized
@@ -532,7 +552,14 @@ static void print_up_time(void) {
 
     // print a quote on the OLED display
     // under the uptime
-    oled_write_ln("rm -rf is not a joke!", false);
+    // Rotate jokes every 10 seconds
+    if (timer_elapsed32(last_joke_time) > 30000) {
+        joke_index = (joke_index + 1) % NUM_JOKES;
+        last_joke_time = timer_read32();
+    }
+
+    // Display current joke
+    oled_write_ln(jokes[joke_index], false);
 }
 
 bool oled_task_user(void) {
