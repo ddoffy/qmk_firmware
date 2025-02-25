@@ -818,13 +818,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 //  #ifdef ENCODER_ENABLE
-//
-//
-//
 //  bool encoder_update_user(uint8_t index, bool clockwise) {
 //      if (index == 0) { /* First encoder */
 //          if (clockwise) {
-//              tap_code(KC_PGUP);
+//              tap_code(KC_VOLD);
 //          } else {
 //              tap_code(KC_VOLU);
 //          }
@@ -843,11 +840,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //  #endif
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_QWERTY] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-    [_COLEMAK] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_LOWER] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(KC_BRIU, KC_BRID)  },
-    [_RAISE] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
-    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
-};
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+        /* [_QWERTY] = { */
+        /*     ENCODER_CCW_CW(KC_VOLU, KC_VOLD), */
+        /*     ENCODER_CCW_CW(C(KC_TAB), S(C(KC_TAB)))  // Right encoder: Cycle tabs (Ctrl + Tab, Ctrl + Shift + Tab) */
+        /* }, */
+            /* ENCODER_CCW_CW(MS_WHLU, MS_WHLD) }, */
+        [_QWERTY] = {
+            ENCODER_CCW_CW(C(KC_TAB), S(C(KC_TAB))),  // Right encoder: Cycle tabs (Ctrl + Tab, Ctrl + Shift + Tab) */
+            ENCODER_CCW_CW(LCMD(KC_TAB), LSFT(LCMD(KC_TAB)))  // Right encoder: Cycle tabs (Cmd+Tab on Mac, Ctrl+Tab on Linux)
+        },
+        [_COLEMAK] = {
+            ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)
+        },
+        [_LOWER] = {
+            ENCODER_CCW_CW(RGB_HUD, RGB_HUI),
+            ENCODER_CCW_CW(KC_BRIU, KC_BRID)
+        },
+        [_RAISE] = {
+            ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),
+            ENCODER_CCW_CW(RGB_SPD, RGB_SPI)
+        },
+        [_ADJUST] = {
+            ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),
+            ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)
+        },
+    };
 #endif
