@@ -1,7 +1,10 @@
 // Copyright 2022 axtlos (@axtloss)
 // SPDX-License-Identifier: GPL-2.0-only
 #include QMK_KEYBOARD_H
-#include <time.h>
+
+/*
+keymap_config.swap_lctl_lgui = true; it means the keyboard is in MAC mode
+ */
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -29,7 +32,8 @@ enum custom_keycodes {
     KC_CSCOM,
     KC_CREATE,
     KC_SCREENSHOT,
-    KC_NEWTAB
+    KC_NEWTAB,
+    KC_SW
 };
 
 
@@ -74,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_QUOT,
-  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,       XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-            KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,         KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_QUOT,
+  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+            KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,           KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -87,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
- * |------+------+------+------+------+------|New tab|    |       |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|New tab|    |S_wndw|------+------+------+------+------+------|
  * | Shift|  =   |  -   |  +   |   [  |   {  |-------|    |-------|   }  |   ]  |   ;  |   :  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR | Lower | / Space /       \Space\   |Raise | RCTR | RAlt | RGUI |
@@ -174,7 +178,6 @@ static uint32_t start_time = 0; // stores the time when the keyboard was powered
                                 // on
 static uint8_t joke_index = 0;  // index of the joke to display
 static uint32_t last_joke_time = 0; // time when the last joke was displayed
-
 
 const char *jokes[] = {
     "rm -rf is not a joke...",
@@ -870,24 +873,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LCTL));
+            // combine key for new terminal tab in linux and mac
+            // CTRL + SHIFT + T for linux
+            // CMD + T for mac
+            if (keymap_config.swap_lctl_lgui) {
+                if (record->event.pressed) {
+                    register_mods(mod_config(MOD_MASK_GUI));
                     register_code(KC_T);
                 } else {
-                    register_mods(mod_config(MOD_LGUI));
-                    register_code(KC_T);
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_T);
                 }
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_T);
+                if (record->event.pressed) {
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_T);
                 } else {
-                    unregister_mods(mod_config(MOD_LGUI));
+                    unregister_mods(mod_config(MOD_MASK_CS));
                     unregister_code(KC_T);
                 }
             }
             break;
+        case KC_SW:
+            if (show_lock == true) {
+                return false;
+            }
+            // to switch window in linux and mac
+            // ALT + TAB for linux
+            // CMD + TAB for mac
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_TAB);
+                } else {
+                    register_mods(mod_config(MOD_MASK_ALT));
+                    register_code(KC_TAB);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_TAB);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_ALT));
+                    unregister_code(KC_TAB);
+                }
+            }
+            return false;
         case KC_UNLOCK:
             if (record->event.pressed) {
                 show_lock = !show_lock;
