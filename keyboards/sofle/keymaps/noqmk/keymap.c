@@ -33,7 +33,16 @@ enum custom_keycodes {
     KC_CREATE,
     KC_SCREENSHOT,
     KC_NEWTAB,
-    KC_SW
+    KC_SW,
+    KC_TAB1,
+    KC_TAB2,
+    KC_TAB3,
+    KC_TAB4,
+    KC_TAB5,
+    KC_TAB6,
+    KC_TAB7,
+    KC_TAB8,
+    KC_TAB9,
 };
 
 
@@ -78,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_QUOT,
+  KC_GRV,   KC_TAB1,   KC_TAB2,    KC_TAB3,    KC_TAB4,    KC_TAB5,                       KC_TAB6,    KC_TAB7,    KC_TAB8,    KC_TAB9,    KC_0, KC_QUOT,
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
@@ -759,7 +768,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_C);
                 }
             }
-            return false;
+            break;
         case KC_PASTE:
             if (show_lock == true) {
                 return false;
@@ -781,7 +790,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_V);
                 }
             }
-            return false;
+            break;
         case KC_CUT:
             if (show_lock == true) {
                 return false;
@@ -803,7 +812,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_X);
                 }
             }
-            return false;
+            break;
         case KC_UNDO:
             if (show_lock == true) {
                 return false;
@@ -825,7 +834,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_Z);
                 }
             }
-            return false;
+            break;
         case KC_CREATE:
             if (show_lock == true) {
                 return false;
@@ -918,7 +927,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_TAB);
                 }
             }
-            return false;
+            break;
+        case KC_TAB1:
+        case KC_TAB2:
+        case KC_TAB3:
+        case KC_TAB4:
+        case KC_TAB5:
+        case KC_TAB6:
+        case KC_TAB7:
+        case KC_TAB8:
+        case KC_TAB9:
+            if (show_lock == true) {
+                return false;
+            }
+
+            // to switch to a specific tab in linux and mac
+            // ALT + 1 to ALT + 9 for linux
+            // CMD + 1 to CMD + 9 for mac
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_code(KC_1 + (keycode - KC_TAB1));
+                } else {
+                    register_mods(mod_config(MOD_MASK_ALT));
+                    register_code(KC_1 + (keycode - KC_TAB1));
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_MASK_GUI));
+                    unregister_code(KC_1 + (keycode - KC_TAB1));
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_ALT));
+                    unregister_code(KC_1 + (keycode - KC_TAB1));
+                }
+            }
+            break;
         case KC_UNLOCK:
             if (record->event.pressed) {
                 show_lock = !show_lock;
@@ -926,6 +969,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
+
     /* This stops any keypress to be sent to the computer when the keyboard is locked */
     return !show_lock;
 }
