@@ -16,6 +16,16 @@ enum sofle_layers {
     _ADJUST,
 };
 
+// Tap dance declarations
+enum {
+    TD_SCLN_QUOT,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SCLN_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT)
+};
+
 enum custom_keycodes {
     KC_COLEMAK = SAFE_RANGE,
     KC_QWERTY,
@@ -89,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   KC_GRV,   KC_TAB1,   KC_TAB2,    KC_TAB3,    KC_TAB4,    KC_TAB5,                       KC_TAB6,    KC_TAB7,    KC_TAB8,    KC_TAB9,    KC_0, KC_QUOT,
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_ENT,
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, TD(TD_SCLN_QUOT),  KC_ENT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
             KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,           KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
