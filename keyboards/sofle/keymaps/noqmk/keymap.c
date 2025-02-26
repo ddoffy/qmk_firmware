@@ -219,9 +219,6 @@ void keyboard_post_init_user(void) {
     start_time = timer_read32();  // Record the start time when the keyboard is initialized
 }
 
-bool show_lock = false; // this is used to display the lock icon and disable keypresses when the keyboard is locked
-
-
 /* static void render_logo(void) { */
 
 /*     static const char PROGMEM no_qmk[] = { */
@@ -495,9 +492,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 static void print_status_narrow(void) {
     /* Print current mode */
     oled_set_cursor(0, 0);
-    if (show_lock == true) {
-        oled_write_raw_P(locked_logo, sizeof(locked_logo));
-    } else if (keymap_config.swap_lctl_lgui) {
+    if (keymap_config.swap_lctl_lgui) {
         oled_write_raw_P(mac_logo, sizeof(mac_logo));
     } else {
         oled_write_raw_P(linux_logo, sizeof(linux_logo));
@@ -607,25 +602,16 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_QWERTY:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
         case KC_COLEMAK:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
         case KC_GAME:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_GAME);
             }
@@ -656,9 +642,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case KC_PRVWD:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_LALT));
@@ -678,9 +661,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_NXTWD:
-            if (show_lock == true) {
-                return false;
-            }
              if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_LALT));
@@ -700,9 +680,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_LSTRT:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                      //CMD-arrow on Mac, but we have CTL and GUI swapped
@@ -721,9 +698,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_LEND:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     //CMD-arrow on Mac, but we have CTL and GUI swapped
@@ -742,9 +716,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_DLINE:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_RCTL));
                 register_code(KC_BSPC);
@@ -754,9 +725,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_COPY:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 // Swap CTL and GUI on Mac
                 if (keymap_config.swap_lctl_lgui) {
@@ -780,9 +748,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_PASTE:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_MASK_GUI));
@@ -802,9 +767,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_CUT:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_MASK_GUI));
@@ -824,9 +786,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_UNDO:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_MASK_GUI));
@@ -846,9 +805,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_CREATE:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_LCTL));
@@ -868,9 +824,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_SCREENSHOT:
-            if (show_lock == true) {
-                return false;
-            }
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
                     register_mods(mod_config(MOD_MASK_CSG));
@@ -888,10 +841,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_NEWTAB:
-            if (show_lock == true) {
-                return false;
-            }
-
             // combine key for new terminal tab in linux and mac
             // CTRL + SHIFT + T for linux
             // CMD + T for mac
@@ -914,9 +863,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_SW:
-            if (show_lock == true) {
-                return false;
-            }
             // to switch window in linux and mac
             // ALT + TAB for linux
             // CMD + TAB for mac
@@ -947,10 +893,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_TAB7:
         case KC_TAB8:
         case KC_TAB9:
-            if (show_lock == true) {
-                return false;
-            }
-
             // to switch to a specific tab in linux and mac
             // ALT + 1 to ALT + 9 for linux
             // CMD + 1 to CMD + 9 for mac
@@ -972,16 +914,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-        case KC_UNLOCK:
-            if (record->event.pressed) {
-                show_lock = !show_lock;
-                print_status_narrow();
-            }
-            return false;
     }
 
     /* This stops any keypress to be sent to the computer when the keyboard is locked */
-    return !show_lock;
+    return true;
 }
 
 //  #ifdef ENCODER_ENABLE
