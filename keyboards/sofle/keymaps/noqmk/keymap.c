@@ -9,8 +9,6 @@ keymap_config.swap_lctl_lgui = true; it means the keyboard is in MAC mode
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
-    _COLEMAK,
-    _GAME,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -19,26 +17,29 @@ enum sofle_layers {
 // Tap dance declarations
 enum {
     TD_SCLN_QUOT,
+    TD_SLSH_BSLS,
+    TD_N_LBRC,
+    TD_M_RBRC
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_SCLN_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT)
+    [TD_SCLN_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+    [TD_SLSH_BSLS] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
+    [TD_N_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_LBRC),
+    [TD_M_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_RBRC),
 };
 
 enum custom_keycodes {
-    KC_COLEMAK = SAFE_RANGE,
-    KC_QWERTY,
+    KC_QWERTY = SAFE_RANGE,
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
-    KC_GAME,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND,
     KC_DLINE,
-    KC_UNLOCK,
     KC_CSCOM,
     KC_CREATE,
     KC_SCREENSHOT,
@@ -57,29 +58,6 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
- /*
- * COLEMAK
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   F  |   P  |   B  |                    |   J  |   L  |   U  |   Y  |   ;  | Bspc |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TAB  |   A  |   R  |   S  |   T  |   G  |-------.    ,-------|   M  |   N  |   E  |   I  |   O  |   '  |
- * |------+------+------+------+------+------|  MUTE |    |ADJUST |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   D  |   V  |-------|    |-------|   K  |   H  |   ,  |   .  |   /  |RShift|
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /  Enter/       \Space \  |RAISE | RCTR | RAlt | RGUI |
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'           '------''---------------------------'
- */
-
-[_COLEMAK] = LAYOUT(
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS,
-  KC_ESC,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC,
-  KC_TAB,   KC_A,   KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_D,    KC_V, KC_MUTE,      KC_CAPS , KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                 KC_LGUI,  KC_LALT, KC_LCTL,KC_LOWER, KC_ENT,      KC_SPC,   KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
-),
 /*
  * QWERTY
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -97,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_TAB1,   KC_TAB2,    KC_TAB3,    KC_TAB4,    KC_TAB5,                       KC_TAB6,    KC_TAB7,    KC_TAB8,    KC_TAB9,    KC_0, KC_QUOT,
-  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, TD(TD_SCLN_QUOT),  KC_ENT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-            KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,           KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
+  KC_GRV,   KC_TAB1,  KC_TAB2, KC_TAB3, KC_TAB4, KC_TAB5,                   KC_TAB6, KC_TAB7, KC_TAB8,  KC_TAB9, KC_0, KC_QUOT,
+  KC_ESC,   KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,  KC_I,   KC_O,  KC_P,  KC_BSPC,
+  KC_TAB,   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,  KC_K,   KC_L, TD(TD_SCLN_QUOT),  KC_ENT,
+  KC_LSFT,  KC_Z,     KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,TD(TD_N_LBRC), TD(TD_M_RBRC), KC_COMM,  KC_DOT, TD(TD_SLSH_BSLS),  KC_RSFT,
+            KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, KC_SPC,                 KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -110,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
- * |------+------+------+------+------+------|New tab|    |S_wndw|------+------+------+------+------+------|
+ * |------+------+------+------+------+------|New_tab|    |S_wndw|------+------+------+------+------+------|
  * | Shift|  =   |  -   |  +   |   [  |   {  |-------|    |-------|   }  |   ]  |   ;  |   :  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR | Lower | / Space /       \Space\   |Raise | RCTR | RAlt | RGUI |
@@ -145,29 +123,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_CAPS,  _______,            _______,KC_CREATE, KC_QUOT, KC_INS, KC_LEND,   XXXXXXX, _______,
                     _______, _______, _______, _______, KC_SPC,                     KC_SPC, _______, _______, _______, _______
 ),
-/*
- * QWERTY
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | Bspc |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RAlt | RCTR | Print|
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'           '------''---------------------------'
- */
-
-[_GAME] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_LCTL,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,       XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                    KC_LGUI,KC_LALT,KC_SPC, KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RALT, KC_RCTL, KC_PSCR
-),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -184,9 +139,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,CG_TOGG, KC_GAME,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-  KC_UNLOCK , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+  QK_BOOT  , XXXXXXX,KC_QWERTY,XXXXXXX,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                           _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
 ),
 };
@@ -476,6 +431,8 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
+    } else {
+        return OLED_ROTATION_270;
     }
     return rotation;
 }
@@ -496,12 +453,6 @@ static void print_status_narrow(void) {
     oled_set_cursor(0, 3);
 
     switch (get_highest_layer(default_layer_state)) {
-        case _COLEMAK:
-            oled_write_P(PSTR(" CLMK "), false);
-            break;
-        case _GAME:
-            oled_write_P(PSTR(" GAME "), false);
-            break;
         case _QWERTY:
             oled_write_P(PSTR("QWERT"), false);
             break;
@@ -551,14 +502,12 @@ static void print_up_time(void) {
     uint32_t elapsed_ms = (timer_read32() - start_time);
     uint32_t elapsed_seconds = elapsed_ms / 1000;
     uint32_t elapsed_minutes = elapsed_seconds / 60;
-    uint32_t elapsed_hours = elapsed_minutes / 60;
 
     // Print the elapsed time on the OLED display
     char time_str[32];
 
-    snprintf(time_str, sizeof(time_str), "Uptime: %02u:%02u:%02u",
-             (unsigned int)elapsed_hours,
-             (unsigned int)(elapsed_minutes % 60),
+    snprintf(time_str, sizeof(time_str), "%02u:%02u",
+             (unsigned int)(elapsed_minutes),
              (unsigned int)(elapsed_seconds % 60));
     oled_write_ln(time_str, false);
 
@@ -599,16 +548,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case KC_GAME:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_GAME);
             }
             return false;
         case KC_LOWER:
@@ -947,10 +886,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         [_QWERTY] = {
             ENCODER_CCW_CW(S(C(KC_TAB)), S(C(KC_TAB))),  // Right encoder: Cycle tabs (Ctrl + Tab, Ctrl + Shift + Tab) */
             ENCODER_CCW_CW(LCMD(KC_TAB), LSFT(LCMD(KC_TAB)))  // Right encoder: Cycle tabs (Cmd+Tab on Mac, Ctrl+Tab on Linux)
-        },
-        [_COLEMAK] = {
-            ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
-            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)
         },
         [_LOWER] = {
             ENCODER_CCW_CW(RGB_HUD, RGB_HUI),
