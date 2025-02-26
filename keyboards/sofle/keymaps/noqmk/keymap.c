@@ -887,19 +887,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // CMD + T for mac
             if (keymap_config.swap_lctl_lgui) {
                 if (record->event.pressed) {
-                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_mods(mod_config(MOD_LCTL));
                     register_code(KC_T);
                 } else {
-                    unregister_mods(mod_config(MOD_MASK_GUI));
                     unregister_code(KC_T);
+                    unregister_mods(mod_config(MOD_LCTL));
                 }
             } else {
                 if (record->event.pressed) {
                     register_mods(mod_config(MOD_MASK_CS));
                     register_code(KC_T);
                 } else {
-                    unregister_mods(mod_config(MOD_MASK_CS));
                     unregister_code(KC_T);
+                    unregister_mods(mod_config(MOD_MASK_CS));
                 }
             }
             break;
@@ -912,7 +912,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // CMD + TAB for mac
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_mods(mod_config(MOD_LCTL));
                     register_code(KC_TAB);
                 } else {
                     register_mods(mod_config(MOD_MASK_ALT));
@@ -920,11 +920,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_MASK_GUI));
                     unregister_code(KC_TAB);
+                    unregister_mods(mod_config(MOD_LCTL));
                 } else {
-                    unregister_mods(mod_config(MOD_MASK_ALT));
                     unregister_code(KC_TAB);
+                    unregister_mods(mod_config(MOD_MASK_ALT));
                 }
             }
             break;
@@ -946,7 +946,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // CMD + 1 to CMD + 9 for mac
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_MASK_GUI));
+                    register_mods(mod_config(MOD_LCTL));
                     register_code(KC_1 + (keycode - KC_TAB1));
                 } else {
                     register_mods(mod_config(MOD_MASK_ALT));
@@ -954,11 +954,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_MASK_GUI));
                     unregister_code(KC_1 + (keycode - KC_TAB1));
+                    unregister_mods(mod_config(MOD_LCTL));
                 } else {
-                    unregister_mods(mod_config(MOD_MASK_ALT));
                     unregister_code(KC_1 + (keycode - KC_TAB1));
+                    unregister_mods(mod_config(MOD_MASK_ALT));
                 }
             }
             break;
