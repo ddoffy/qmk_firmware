@@ -78,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_TAB1,  KC_TAB2, KC_TAB3, KC_TAB4, KC_TAB5,                   KC_TAB6, KC_TAB7, KC_TAB8,  KC_TAB9, KC_0, KC_QUOT,
+  KC_SW,   KC_TAB1,  KC_TAB2, KC_TAB3, KC_TAB4, KC_TAB5,                   KC_TAB6, KC_TAB7, KC_TAB8,  KC_TAB9, KC_0, KC_QUOT,
   KC_ESC,   KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,  KC_I,   KC_O,  KC_P,  KC_BSPC,
   TD(TD_TAB_GRV),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,  KC_K,   KC_L, TD(TD_SCLN_QUOT),  KC_ENT,
-  KC_LSFT,  KC_Z,     KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_SW,TD(TD_N_LBRC), TD(TD_M_RBRC), KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+  KC_LSFT,  KC_Z,     KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_MUTE,TD(TD_N_LBRC), TD(TD_M_RBRC), KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
             KC_LGUI,   KC_LALT,  KC_LCTL, KC_LOWER, MOD_SPC,                 MOD_SPC_ALT, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /* LOWER
@@ -881,14 +881,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(ENCODER_MAP_ENABLE)
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-        /* [_QWERTY] = { */
-        /*     ENCODER_CCW_CW(KC_VOLU, KC_VOLD), */
-        /*     ENCODER_CCW_CW(C(KC_TAB), S(C(KC_TAB)))  // Right encoder: Cycle tabs (Ctrl + Tab, Ctrl + Shift + Tab) */
-        /* }, */
-            /* ENCODER_CCW_CW(MS_WHLU, MS_WHLD) }, */
         [_QWERTY] = {
-            ENCODER_CCW_CW(S(C(KC_TAB)), S(C(KC_TAB))),  // Right encoder: Cycle tabs (Ctrl + Tab, Ctrl + Shift + Tab) */
-            ENCODER_CCW_CW(LCMD(KC_TAB), LSFT(LCMD(KC_TAB)))  // Right encoder: Cycle tabs (Cmd+Tab on Mac, Ctrl+Tab on Linux)
+            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN),
         },
         [_LOWER] = {
             ENCODER_CCW_CW(RGB_HUD, RGB_HUI),
