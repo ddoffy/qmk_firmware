@@ -4,6 +4,7 @@
 
 #define MOD_SPC MT(MOD_LGUI, KC_SPC)
 
+
 /*
 keymap_config.swap_lctl_lgui = true; it means the keyboard is in MAC mode
  */
@@ -17,16 +18,14 @@ enum sofle_layers {
 };
 
 // Tap dance declarations
-//enum {
-//    TD_SCLN_QUOT,
-//    TD_TAB_GRV,
-//};
-//
-//// Tap Dance definitions
-//tap_dance_action_t tap_dance_actions[] = {
-//    [TD_SCLN_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-//    [TD_TAB_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_GRV),
-//};
+enum {
+   TD_GRV_QUOT
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_GRV_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_QUOT),
+};
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
@@ -73,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_SW,   KC_TAB1,  KC_TAB2, KC_TAB3, KC_TAB4, KC_TAB5,                   KC_TAB6, KC_TAB7, KC_TAB8,  KC_TAB9, KC_0, KC_QUOT,
+  KC_SW,   KC_TAB1,  KC_TAB2, KC_TAB3, KC_TAB4, KC_TAB5,                   KC_TAB6, KC_TAB7, KC_TAB8,  KC_TAB9, KC_0, TD(TD_GRV_QUOT),
   KC_ESC,   KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,  KC_I,   KC_O,  KC_P,  KC_BSPC,
   KC_TAB,   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,  KC_K,   KC_L, KC_SCLN,  KC_ENT,
   KC_LSFT,  KC_Z,     KC_X,    KC_C,    KC_V,    KC_B, KC_NEWTAB,      KC_MUTE, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
