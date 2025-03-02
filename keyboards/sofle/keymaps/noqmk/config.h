@@ -1,12 +1,12 @@
 #pragma once
 
-// OLED settings
-#define OLED_TIMEOUT        80000
-#define OLED_BRIGHTNESS     90
-#define OLED_DISPLAY_CLOCK  0x80
+// // OLED settings
+// #define OLED_TIMEOUT        80000
+// #define OLED_BRIGHTNESS     90
+// #define OLED_DISPLAY_CLOCK  0x80
 
-#define SPLIT_WPM_ENABLE
-#define SPLIT_OLED_ENABLE
+// #define SPLIT_WPM_ENABLE
+// #define SPLIT_OLED_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
 
 #define MASTER_RIGHT
@@ -21,9 +21,9 @@
 #define EE_HANDS
 #endif
 
-#define TAPPING_TERM_PER_KEY
-
-#ifdef TAPPING_TERM
-    #undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 175
+// #define TAPPING_TERM_PER_KEY
+//
+// #ifdef TAPPING_TERM
+//     #undef TAPPING_TERM
+// #endif
+// #define TAPPING_TERM 175
