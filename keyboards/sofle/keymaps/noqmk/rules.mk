@@ -1,9 +1,9 @@
-OLED_ENABLE = no
+OLED_ENABLE = yes
 ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 CONSOLE_ENABLE = no
 EXTRAKEY_ENABLE = yes
-WPM_ENABLE = no
+WPM_ENABLE = yes
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes        # Mouse keys
 CONSOLE_ENABLE = no         # Console for debug
