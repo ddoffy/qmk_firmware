@@ -2,7 +2,7 @@
 
 // // OLED settings
 // #define OLED_TIMEOUT        80000
-#define OLED_BRIGHTNESS     90
+#define OLED_BRIGHTNESS 90
 // #define OLED_DISPLAY_CLOCK  0x80
 
 #define SPLIT_WPM_ENABLE
@@ -51,6 +51,5 @@
 // MOUSEKEY_WHEEL_MAX_SPEED	8	Maximum number of scroll steps per scroll action
 // MOUSEKEY_WHEEL_TIME_TO_MAX	40	Time until maximum scroll speed is reached
 
-
-#define MOUSEKEY_MOVE_DELTA	4	// Step size
-#define MOUSEKEY_MAX_SPEED	5	// Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_MOVE_DELTA 4 // Step size
+#define MOUSEKEY_MAX_SPEED 5  // Maximum cursor speed at which acceleration stops
