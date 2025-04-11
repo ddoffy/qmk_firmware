@@ -15,3 +15,4 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 SPLIT_KEYBOARD = yes
 TAP_DANCE_ENABLE = no
+COMBO_ENABLE = no

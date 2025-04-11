@@ -12,6 +12,8 @@ enum sofle_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _CODE,
+    // _IDE,
 };
 
 // // Tap dance declarations
@@ -29,9 +31,46 @@ enum custom_keycodes {
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
+    KC_CODE,
+    KC_IDE,
     KC_CREATE,
     KC_SCREENSHOT,
     KC_NEWTAB,
+    KC_PRVWD,
+    KC_NXTWD,               // Next word
+    KC_RUST,                // Rust import/use
+    KC_GO,                  // Go import
+    KC_DOTNET,              // .NET using
+    KC_JS,                  // JavaScript import
+    KC_PY,                  // Python import
+    KC_CNEQ,                // !=
+    KC_CEQ,                 // ==
+    KC_CLTE,                // <=
+    KC_CGTE,                // >=
+    KC_ARROW,               // =>
+    KC_INCP,                // ++
+    KC_DECR,                // --
+    KC_PLUSEQ,              // +=
+    KC_MINEQ,               // -=
+    KC_MULEQ,               // *=
+    KC_DIVEQ,               // /=
+    KC_FNKW,                // function/fn keyword
+    KC_IFKW,                // if
+    KC_FORKW,               // for
+    KC_WHILEKW,             // while
+    KC_ASYNCKW,             // async
+    KC_RETKW,               // return
+    KC_CLASSKW,             // class/struct 
+    KC_TRYKW,               // try/catch
+    KC_CONSTKW,             // const/let
+    KC_NULLKW,              // null/undefined
+    KC_SAVEALL,             // Save all
+    KC_RUNDBG,              // Run/Debug
+    KC_BUILDPROJ,           // Build project
+    KC_TEST,                // Run tests
+    KC_DEBUGBRK,             // Debug breakpoint
+    KC_TERM
+
 };
 
 
@@ -57,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                           KC_Y,    KC_U,  KC_I,     KC_O,   KC_P,     KC_BSPC,
   KC_TAB,   KC_A,    KC_S,    KC_D,    KC_F,   KC_G,                           KC_H,    KC_J,  KC_K,     KC_L,   KC_SCLN,  KC_ENT,
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B, KC_MUTE,       KC_NEWTAB, KC_N,    KC_M,  KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-            KC_LGUI, KC_LALT, KC_LCTL, KC_LOWER, KC_SPC,                 KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_MINUS
+            KC_LGUI, KC_LALT, KC_LCTL, KC_LOWER, KC_SPC,                 KC_SPC, KC_RAISE, KC_RCTL, KC_CODE, KC_MINUS
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -131,7 +170,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                           _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
 ),
+[_CODE] = LAYOUT(
+    // ,-----------------------------------------.                    ,-----------------------------------------.
+    //  |  TERM |  F1  |  F2  |  F3  |  F4  |  F5  |                  |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+    //  |------+------+------+------+------+------|                  |------+------+------+------+------+------|
+    //  |  GO  | RUST | .NET |  JS  |  PY  | TEST |                  |SEARCH|  ==  |  !=  |  <=  |  >=  |  =>  |
+    //  |------+------+------+------+------+------|                  |------+------+------+------+------+------|
+    //  |  CUT | COPY | SEL  | FIND | FRMT | REFAC|                  | FUNC |  IF  | FOR  |WHILE |ASYNC |RETURN|
+    //  |------+------+------+------+------+------|                  |------+------+------+------+------+------|
+    //  | UNDO | REDO |CLOSE |INDENT|PASTE |BUILD |                  |  +=  |  -=  |  *=  |  /=  |  ++  |  --  |
+    //  `-----------------------------------------/                  \-----------------------------------------'
+    //               | GUI  | SAVE | ALT  | CODE |SPACE|        | GIT |CLASS | TRY  |CONST | NULL |CTRL |
+    //               |      |      |      |(act) |     |        |     |      |      |      |      |     |
+    //               `----------------------------------'        `----------------------------------'
+
+    KC_ESC,  KC_F1,              KC_F2,         KC_F3,    KC_F4,    KC_F5,                                KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
+    KC_GO,   KC_RUST,            KC_DOTNET,     KC_JS,    KC_PY,    KC_TEST,                              KC_TRNS,    KC_CEQ,     KC_CNEQ,    KC_CLTE,    KC_CGTE,    KC_ARROW,  
+    KC_CUT,  KC_COPY,            KC_LSFT,       KC_FIND,  KC_ALGR,  KC_RALT,                              KC_FNKW,    KC_IFKW,    KC_FORKW,   KC_WHILEKW, KC_ASYNCKW, KC_RETKW,
+    KC_UNDO, LCTL(LSFT(KC_Z)),   KC_WWW_BACK,   KC_TAB,   KC_PASTE, KC_BUILDPROJ, XXXXXXX,     KC_MEH,   KC_PLUSEQ,  KC_MINEQ,   KC_MULEQ,   KC_DIVEQ,   KC_INCP,    KC_DECR,
+                      KC_LGUI,   KC_SAVEALL,    KC_LALT, XXXXXXX,    KC_SPC,             KC_CLASSKW, KC_TRYKW,   KC_CONSTKW, KC_NULLKW,  KC_RCTL
+),
 };
+
 
 #ifdef OLED_ENABLE
 
@@ -764,6 +824,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
             }
             return false;
+        case KC_CODE:
+            if (record->event.pressed) {
+                layer_on(_CODE);
+            } else {
+                layer_off(_CODE);
+            }
+            return false;
         case KC_CREATE:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -822,6 +889,167 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        case KC_RUST:
+            if (record->event.pressed) {
+                SEND_STRING("use ");
+            }
+            return false;
+        case KC_GO:
+            if (record->event.pressed) {
+                SEND_STRING("import ");
+            }
+            return false;
+        case KC_DOTNET:
+            if (record->event.pressed) {
+                SEND_STRING("using ");
+            }
+            return false;
+        case KC_JS:
+            if (record->event.pressed) {
+                SEND_STRING("import ");
+            }
+            return false;
+        case KC_PY:
+            if (record->event.pressed) {
+                SEND_STRING("import ");
+            }
+            return false;
+        case KC_CNEQ:
+            if (record->event.pressed) {
+                SEND_STRING("!=");
+            }
+            return false;
+        case KC_CEQ:
+            if (record->event.pressed) {
+                SEND_STRING("==");
+            }
+            return false;
+        case KC_CLTE:
+            if (record->event.pressed) {
+                SEND_STRING("<=");
+            }
+            return false;
+        case KC_CGTE:
+            if (record->event.pressed) {
+                SEND_STRING(">=");
+            }
+            return false;
+        case KC_ARROW:
+            if (record->event.pressed) {
+                SEND_STRING("=>");
+            }
+            return false;
+        case KC_INCP:
+            if (record->event.pressed) {
+                SEND_STRING("++");
+            }
+            return false;
+        case KC_DECR:
+            if (record->event.pressed) {
+                SEND_STRING("--");
+            }
+            return false;
+        case KC_PLUSEQ:
+            if (record->event.pressed) {
+                SEND_STRING("+=");
+            }
+            return false;
+        case KC_MINEQ:
+            if (record->event.pressed) {
+                SEND_STRING("-=");
+            }
+            return false;
+        case KC_MULEQ:
+            if (record->event.pressed) {
+                SEND_STRING("*=");
+            }
+            return false;
+        case KC_DIVEQ:
+            if (record->event.pressed) {
+                SEND_STRING("/=");
+            }
+            return false;
+        // Language constructs
+        case KC_FNKW:
+            if (record->event.pressed) {
+                // Detect language context or use generic
+                SEND_STRING("function ");
+            }
+            return false;
+        case KC_IFKW:
+            if (record->event.pressed) {
+                SEND_STRING("if (");
+            }
+            return false;
+        case KC_FORKW:
+            if (record->event.pressed) {
+                SEND_STRING("for (");
+            }
+            return false;
+        case KC_WHILEKW:
+            if (record->event.pressed) {
+                SEND_STRING("while (");
+            }
+            return false;
+        case KC_ASYNCKW:
+            if (record->event.pressed) {
+                SEND_STRING("async ");
+            }
+            return false;
+        case KC_RETKW:
+            if (record->event.pressed) {
+                SEND_STRING("return ");
+            }
+            return false;
+        case KC_CLASSKW:
+            if (record->event.pressed) {
+                SEND_STRING("class ");
+            }
+            return false;
+        case KC_CONSTKW:
+            if (record->event.pressed) {
+                SEND_STRING("const ");
+            }
+            return false;
+        case KC_NULLKW:
+            if (record->event.pressed) {
+                SEND_STRING("null");
+            }
+            return false;
+        // IDE actions
+        case KC_SAVEALL:
+            if (record->event.pressed) {
+                // CTRL+K CTRL+S in VS Code or Rider
+                SEND_STRING(SS_LCTL("ks"));
+            }
+            return false;
+        case KC_BUILDPROJ:
+            if (record->event.pressed) {
+                // CTRL+SHIFT+B in VS Code or Rider
+                SEND_STRING(SS_LCTL(SS_LSFT("b")));
+            }
+            return false;
+        case KC_TEST:
+            if (record->event.pressed) {
+                // Common IDE test shortcut 
+                SEND_STRING(SS_LCTL(SS_LSFT("t")));
+            }
+            return false;
+        case KC_TERM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("`"));  // Ctrl+` is common for terminal in VS Code
+            }
+            return false;
+        case KC_TRYKW:
+            if (record->event.pressed) {
+                SEND_STRING("try {\n  \n} catch (e) {\n  \n}");
+                for (int i = 0; i < 15; i++) {
+                    tap_code(KC_LEFT);
+                }
+            }
+            return false;
+        default:
+            return true;
     }
 
     /* This stops any keypress to be sent to the computer when the keyboard is locked */
@@ -865,6 +1093,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             ENCODER_CCW_CW(RGB_SPD, RGB_SPI)
         },
         [_ADJUST] = {
+            ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),
+            ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)
+        },
+        [_CODE] = {
             ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),
             ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)
         },
