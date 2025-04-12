@@ -60,7 +60,7 @@ enum custom_keycodes {
     KC_WHILEKW,             // while
     KC_ASYNCKW,             // async
     KC_RETKW,               // return
-    KC_CLASSKW,             // class/struct 
+    KC_CLASSKW,             // class/struct
     KC_TRYKW,               // try/catch
     KC_CONSTKW,             // const/let
     KC_NULLKW,              // null/undefined
@@ -92,11 +92,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,   KC_5,                           KC_6,    KC_7,  KC_8,     KC_9,   KC_0,     KC_QUOT,
+  KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,   KC_5,                           KC_6,    KC_7,  KC_8,     KC_9,   KC_0,     KC_EQL,
   KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                           KC_Y,    KC_U,  KC_I,     KC_O,   KC_P,     KC_BSPC,
   KC_TAB,   KC_A,    KC_S,    KC_D,    KC_F,   KC_G,                           KC_H,    KC_J,  KC_K,     KC_L,   KC_SCLN,  KC_ENT,
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B, KC_MUTE,       KC_NEWTAB, KC_N,    KC_M,  KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-            KC_LGUI, KC_LALT, KC_LCTL, KC_LOWER, KC_SPC,                 KC_SPC, KC_RAISE, KC_RCTL, KC_CODE, KC_MINUS
+            KC_LGUI, KC_LALT, KC_LCTL, KC_LOWER, KC_SPC,                 KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -113,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_LOWER] = LAYOUT(
-  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_PLUS,  KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC,  KC_EQL,
-  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINUS,
-  KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_PIPE,
-  KC_UNDS,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,    _______, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQUO, KC_BSLS,  KC_RSFT,
+  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_EQL, KC_PLUS, KC_MINUS, KC_UNDS, KC_ARROW,   KC_MINUS,
+  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,      KC_UNDS,
+  KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,   KC_PIPE,
+  KC_UNDS,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,    _______, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQUO, KC_BSLS,   KC_RSFT,
                     _______, _______, _______, _______, KC_SPC,        KC_SPC, _______, _______, _______, _______
 ),
 /* RAISE
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //               `----------------------------------'        `----------------------------------'
 
     KC_ESC,  KC_F1,              KC_F2,         KC_F3,    KC_F4,    KC_F5,                                KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
-    KC_GO,   KC_RUST,            KC_DOTNET,     KC_JS,    KC_PY,    KC_TEST,                              KC_TRNS,    KC_CEQ,     KC_CNEQ,    KC_CLTE,    KC_CGTE,    KC_ARROW,  
+    KC_GO,   KC_RUST,            KC_DOTNET,     KC_JS,    KC_PY,    KC_TEST,                              KC_TRNS,    KC_CEQ,     KC_CNEQ,    KC_CLTE,    KC_CGTE,    KC_ARROW,
     KC_CUT,  KC_COPY,            KC_LSFT,       KC_FIND,  KC_ALGR,  KC_RALT,                              KC_FNKW,    KC_IFKW,    KC_FORKW,   KC_WHILEKW, KC_ASYNCKW, KC_RETKW,
     KC_UNDO, LCTL(LSFT(KC_Z)),   KC_WWW_BACK,   KC_TAB,   KC_PASTE, KC_BUILDPROJ, XXXXXXX,     KC_MEH,   KC_PLUSEQ,  KC_MINEQ,   KC_MULEQ,   KC_DIVEQ,   KC_INCP,    KC_DECR,
                       KC_LGUI,   KC_SAVEALL,    KC_LALT, XXXXXXX,    KC_SPC,             KC_CLASSKW, KC_TRYKW,   KC_CONSTKW, KC_NULLKW,  KC_RCTL
@@ -1031,7 +1031,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KC_TEST:
             if (record->event.pressed) {
-                // Common IDE test shortcut 
+                // Common IDE test shortcut
                 SEND_STRING(SS_LCTL(SS_LSFT("t")));
             }
             return false;
