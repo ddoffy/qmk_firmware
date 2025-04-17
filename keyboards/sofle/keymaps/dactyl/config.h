@@ -24,3 +24,9 @@
 #define SERIAL_PIN D0
 // Optionally add
 #define SPLIT_USB_DETECT //later if needed
+
+
+#ifdef TAPPING_TERM
+    #undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 200
