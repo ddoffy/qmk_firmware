@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,        KC_B,                                         KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
   KC_UNDS,  KC_EQL, KC_MINS, KC_PLUS, MO(_LOWER),  LCTL_T(KC_SPC),                      RCTL_T(KC_SPC),  MO(_RAISE), KC_LCBR, KC_RCBR, KC_LBRC,  KC_RBRC,
                                                 KC_LGUI,   KC_LALT,                     KC_RALT, KC_RGUI,
-                                          LSA_T(KC_EQL),   LT(_ADJUST, KC_UNDS),        KC_QUOT, RCS_T(KC_MINS)
+                                          LSA_T(KC_EQL),   LT(_ADJUST, KC_UNDS),        LCA(KC_QUOT), RCS_T(KC_MINS)
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_MPLY,               KC_FIND, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_GRV,    KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_MCTL,               KC_BRIU, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
-  KC_TILD, KC_EXLM,   KC_AT,   KC_HASH,  KC_DLR,  KC_PERC, KC_LPAD,               KC_BRID, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
+  KC_GRV,    KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_MCTL,              KC_NXTWD, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
+  KC_TILD, KC_EXLM,   KC_AT,   KC_HASH,  KC_DLR,  KC_PERC, KC_LPAD,              KC_PRVWD, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
   KC_LSFT,  KC_EQL,   KC_MINS, KC_PLUS,  KC_LCBR, KC_RCBR,                                 KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, KC_RSFT,
   _______,   _______,  _______, _______,  _______, _______,                                _______, _______, _______, _______, _______, _______,
                                               _______,  _______,                  _______, _______,
@@ -125,38 +125,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_LEFT);
+                    register_mods(mod_config(MOD_MASK_CS));
+                    register_code(KC_TAB);
                 } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_LEFT);
+                    register_mods(mod_config(MOD_MASK_SA));
+                    register_code(KC_TAB);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_LEFT);
+                    unregister_mods(mod_config(MOD_MASK_CS));
+                    unregister_code(KC_TAB);
                 } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_LEFT);
+                    unregister_mods(mod_config(MOD_MASK_SA));
+                    unregister_code(KC_TAB);
                 }
             }
             break;
         case KC_NXTWD:
              if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_RIGHT);
+                    register_mods(mod_config(MOD_MASK_CTRL));
+                    register_code(KC_TAB);
+                    unregister_code(KC_TAB);
                 } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_RIGHT);
+                    register_mods(mod_config(MOD_MASK_ALT));
+                    register_code(KC_TAB);
+                    unregister_code(KC_TAB);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_RIGHT);
+                    unregister_mods(mod_config(MOD_MASK_CTRL));
                 } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_RIGHT);
+                    unregister_mods(mod_config(MOD_MASK_ALT));
                 }
             }
             break;
