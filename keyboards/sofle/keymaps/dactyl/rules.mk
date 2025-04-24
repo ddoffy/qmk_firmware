@@ -16,5 +16,6 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 SPLIT_KEYBOARD = yes
 TAP_DANCE_ENABLE = no
-COMBO_ENABLE = no
+COMBO_ENABLE = yes
 SERIAL_USART_HALF_DUPLEX = yes  # Likely needed for single wire
+CAPS_WORD_ENABLE = yes
