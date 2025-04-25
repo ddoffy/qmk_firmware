@@ -20,7 +20,8 @@ enum custom_keycodes {
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
-    KC_LEND
+    KC_LEND,
+    KC_TML, // TML = Tmux leader key Ctrl + a
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,        KC_B,                                         KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
   KC_UNDS,  KC_EQL, KC_MINS, KC_PLUS, MO(_LOWER),  LCTL_T(KC_SPC),                      RCTL_T(KC_SPC),  MO(_RAISE), KC_LCBR, KC_RCBR, KC_LBRC,  KC_RBRC,
                                                 KC_LGUI,   KC_LALT,                     KC_RALT, KC_RGUI,
-                                          LSA_T(KC_EQL),   LT(_ADJUST, KC_UNDS),        LCA(KC_QUOT), RCS_T(KC_MINS)
+                                          LSA_T(KC_EQL),   LT(_ADJUST, KC_UNDS),        KC_TML, RCS_T(KC_MINS)
 ),
 
 /* LOWER
@@ -210,9 +211,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_END);
                 }
             }
-
             break;
+
+        case KC_TML:
+            SEND_STRING(SS_LCTL("a"));
+            break;
+
     }
 
     return true;
 }
+
