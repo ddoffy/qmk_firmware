@@ -19,3 +19,4 @@ TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 SERIAL_USART_HALF_DUPLEX = yes  # Likely needed for single wire
 CAPS_WORD_ENABLE = yes
+SEND_STRING_ENABLE = yes
