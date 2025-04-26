@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
 };
@@ -49,6 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 KC_LGUI,   KC_LALT,                     KC_RALT, KC_RGUI,
                                           LSA_T(KC_EQL),   LT(_ADJUST, KC_UNDS),        LCA(KC_QUOT), RCS_T(KC_MINS)
 ),
+
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
@@ -63,6 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
+
 [_LOWER] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_MPLY,               KC_FIND, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   KC_GRV,    KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_MCTL,              KC_NXTWD, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
@@ -72,6 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______,  _______,                  _______, _______,
                                               _______,  _______,                  _______, _______
 ),
+
 /* RAISE
  * ,----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -86,6 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
 */
+
 [_RAISE] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   CG_TOGG,                KC_CAPS,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,     KC_F11,
   KC_GRV,   KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_0,                   KC_0,  KC_6,     KC_7,     KC_8,     KC_9,      KC_0,       KC_F12,
@@ -95,6 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______, _______,                   _______,   _______,
                                               _______, _______,                   _______,   _______
 ),
+
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -109,6 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
+
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX, KC_0,                 KC_0, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLEP,
   QK_BOOT,  XXXXXXX, KC_QWERTY, XXXXXXX,  CG_TOGG,  XXXXXXX, KC_0,                 KC_0, XXXXXXX, MS_BTN1, MS_BTN3, MS_BTN2, XXXXXXX, XXXXXXX,
@@ -127,6 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
+
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -146,6 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_NXTWD:
              if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -165,6 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_LSTRT:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -183,6 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_LEND:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -201,6 +212,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
     }
+
     return true;
 }
