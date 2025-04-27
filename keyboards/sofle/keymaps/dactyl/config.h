@@ -12,24 +12,22 @@
 #define MASTER_LEFT
 
 #ifdef MASTER_LEFT
-#define USE_SERIAL
-#define EE_HANDS
+#    define USE_SERIAL
+#    define EE_HANDS
 #endif
 
 #ifdef MASTER_RIGHT
-#define USE_SERIAL
-#define EE_HANDS
+#    define USE_SERIAL
+#    define EE_HANDS
 #endif
 
 #define SERIAL_PIN D0
 // Optionally add
-#define SPLIT_USB_DETECT //later if needed
-
+#define SPLIT_USB_DETECT // later if needed
 
 #ifdef TAPPING_TERM
-    #undef TAPPING_TERM
+#    undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-
