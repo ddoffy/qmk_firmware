@@ -3,11 +3,14 @@
 #include QMK_KEYBOARD_H
 
 #define KC_ADJ_PSCR LT(_ADJUST, KC_PSCR)
-#define KC_RAISE MO(_RAISE)
+// #define KC_RAISE LT(_RAISE, KC_ENT)
+// #define KC_LOWER LT(_LOWER, KC_QUOT)
+// #define KC_RAISE MO(_RAISE)
 #define KC_LOWER MO(_LOWER)
-#define KC_ATL_QUOT LALT_T(KC_QUOT)
+#define KC_LCTL LCTL_T(KC_ENT)
+#define KC_RCTL RCTL_T(KC_SPC)
 
-const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {KC_A, KC_S, COMBO_END};
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
 };
@@ -47,15 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,     KC_5,   KC_CAPS,                     KC_MUTE, KC_6,    KC_7,          KC_8,    KC_9,    KC_0,     KC_QUOT,
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,     KC_5,   KC_CAPS,                     KC_MUTE, KC_6,    KC_7,          KC_8,    KC_9,    KC_0,     KC_PRVWD,
   QK_GESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,   KC_PGUP,                     KC_VOLU, KC_Y,    KC_U,          KC_I,    KC_O,    KC_P,     KC_BSPC,
-  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,     KC_G,   KC_PGDN,                     KC_VOLD, KC_H,    KC_J,          KC_K,    KC_L,    KC_SCLN,  KC_ENT,
+  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,     KC_G,   KC_PGDN,                     KC_VOLD, KC_H,    KC_J,          KC_K,    KC_L,    KC_SCLN,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,                                         KC_N,    KC_M,          KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-  KC_UNDS,  KC_EQL, KC_LGUI, KC_LALT,           KC_LOWER, KC_SPC,                      KC_SPC,  KC_RAISE,                  KC_RALT, KC_RGUI, KC_LBRC,  KC_RBRC,
-                                                KC_F9,   KC_LCTL,                     KC_RCTL,      KC_F7,
-                                                KC_F10,KC_ADJ_PSCR,                    KC_TML,     KC_F8
-)
-    ,
+  KC_UNDS,  KC_EQL, KC_LGUI, KC_LALT,           KC_LOWER, KC_LCTL,               KC_RCTL,  KC_RAISE,                  KC_RALT, KC_RGUI, KC_LBRC,  KC_RBRC,
+                                                KC_ADJ_PSCR, KC_F5,                 KC_F6, KC_TML, 
+                                                KC_F10, KC_F9,                       KC_F7, KC_F8
+),
 
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
