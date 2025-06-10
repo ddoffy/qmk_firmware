@@ -27,6 +27,7 @@ enum custom_keycodes {
     KC_CREATE,
     KC_SCREENSHOT,
     KC_NEWTAB,
+    KC_TML, // tmux leader ctrl + a
 };
 
 
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_GESC, KC_Q, KC_W, KC_E, KC_R, KC_T,                                            KC_Y,     KC_U, KC_I,    KC_O,   KC_P,    KC_BSPC,
   KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G,                                            KC_H,     KC_J, KC_K,    KC_L,   KC_SCLN, KC_ENT,
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,                          _______, KC_N,     KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-    MO(_ADJUST), KC_LGUI, KC_LALT, MO(_LOWER), LCTL_T(KC_SPC),                   RCTL_T(KC_SPC), MO(_RAISE), KC_RALT, KC_RGUI, MO(_NAV)
+    MO(_ADJUST), KC_LGUI, KC_LALT, MO(_LOWER), LCTL_T(KC_SPC),                   RCTL_T(KC_SPC), MO(_RAISE), KC_RALT, KC_RGUI, KC_TML
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -517,6 +518,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
+        case KC_TML:
+            SEND_STRING(SS_LCTL("a"));
+            break;
+
         default:
             return true;
     }
