@@ -28,10 +28,9 @@
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 175
+#define TAPPING_TERM 200
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-
 
 // MOUSEKEY_DELAY	10	Delay between pressing a movement key and cursor movement
 // MOUSEKEY_INTERVAL	20	Time between cursor movements in milliseconds
