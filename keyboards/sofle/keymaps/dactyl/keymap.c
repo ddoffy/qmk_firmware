@@ -10,10 +10,10 @@
 #define KC_LCTL LCTL_T(KC_SPC)
 #define KC_RCTL RCTL_T(KC_SPC)
 
-const uint16_t PROGMEM esc_combo[] = {KC_A, KC_S, COMBO_END};
-combo_t key_combos[] = {
-    COMBO(esc_combo, KC_ESC),
-};
+// const uint16_t PROGMEM esc_combo[] = {KC_A, KC_S, COMBO_END};
+// combo_t key_combos[] = {
+//     COMBO(esc_combo, KC_ESC),
+// };
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
