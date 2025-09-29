@@ -56,5 +56,8 @@
 // MOUSEKEY_WHEEL_MAX_SPEED	8	Maximum number of scroll steps per scroll action
 // MOUSEKEY_WHEEL_TIME_TO_MAX	40	Time until maximum scroll speed is reached
 
-#define MOUSEKEY_MOVE_DELTA 2 // Step size
-#define MOUSEKEY_MAX_SPEED 5  // Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_MOVE_DELTA     2            // Step size
+#define MOUSEKEY_MAX_SPEED      8            // Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_INTERVAL       20           // Time between cursor movements in milliseconds
+#define MOUSEKEY_DELAY          10           // Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_TIME_TO_MAX	30           // Time until maximum cursor speed is reached
